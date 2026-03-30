@@ -1,0 +1,136 @@
+<div class="bg-gray-700 p-3">
+  <div class="p-3 box-border bg-white mx-90 w-120 rounded-xl">
+    <div>
+      <p class="mb-3 font-bold text-xl text-center">Create Account</p>
+    </div>
+    <hr class="text-gray-300 mb-2" />
+
+    <form [formGroup]="registerForm" (onSubmit)="handleSubmit()">
+      <div class="p-4">
+        <label class="mr-27">Full Name: </label>
+        <br />
+        <input
+          type="text"
+          formControlName="fullname"
+          placeholder="Enter Full Name"
+          class="border-1 border-gray-400 mt-2 mb-3 text-gray-400 w-full pl-1 h-8.5 rounded-md"
+        />
+        <div *ngIf="registerForm.get('fullname')?.touched">
+          <p *ngIf="registerForm.get('fullname')?.errors?.['required']" class="text-red-500">
+            Name is required
+          </p>
+
+          <p *ngIf="registerForm.get('fullname')?.errors?.['minlength']" class="text-red-500">
+            Minimum 4 characters required
+          </p>
+
+          <p *ngIf="registerForm.get('fullname')?.errors?.['maxlength']" class="text-red-500">
+            Maximum 15 characters allowed
+          </p>
+        </div>
+
+        <label class="mr-33">E-mail: </label>
+        <br />
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your Email"
+          class="mt-2 mb-3 text-gray-400 w-full pl-1 border-1 border-gray-400 h-8.5 rounded-md"
+        />
+        <div
+          *ngIf="
+            registerForm.get('email')?.touched &&
+            registerForm.get('email')?.invalid &&
+            registerForm.get('email')?.errors?.['email']
+          "
+          class="text-red-500 mr-33"
+        >
+          E-mail is required
+        </div>
+
+        <label class="mr-27">Password: </label>
+        <br />
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Enter your Password"
+          class="mt-2 mb-3 text-gray-400 w-full pl-1 border-1 border-gray-400 h-8.5 rounded-md"
+        />
+        <div
+          *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+          class="text-red-500 mr-27"
+        >
+          password is required
+        </div>
+
+        <label class="mr-27">Confirm Password: </label>
+        <br />
+        <input
+          type="password"
+          mt-3
+          formControlName="confirmPassword"
+          placeholder="Confirm password"
+          class="mt-2 mb-3 text-gray-400 w-full pl-1 border-1 border-gray-400 h-8.5 rounded-md"
+        />
+        <div
+          *ngIf="
+            registerForm.get('confirmPassword')?.touched &&
+            registerForm.errors?.['passwordMismatch']
+          "
+          class="text-red-500 mr-20"
+        >
+          Passwords do not match
+        </div>
+
+        <label class="mr-25">Contact No: </label>
+        <br />
+        <input
+          type="text"
+          formControlName="phoneno"
+          placeholder="Contact Number"
+          class="mt-2 mb-3 text-gray-600 w-full pl-1 border-1 border-gray-400 h-8.5 rounded-md"
+        />
+        <!--<div *ngIf="registerForm.get('phoneno')?.touched && registerForm.get('phoneno')?.invalid" class="text-red-500 mr-25">
+        Contact is required
+    </div> -->
+        <div *ngIf="registerForm.get('phoneno')?.touched">
+          <p *ngIf="registerForm.get('phoneno')?.errors?.['required']" class="text-red-500">
+            Contact is required
+          </p>
+
+          <p *ngIf="registerForm.get('phoneno')?.errors?.['minlength']" class="text-red-500">
+            Minimum 10 Digits required
+          </p>
+
+          <p *ngIf="registerForm.get('phoneno')?.errors?.['maxlength']" class="text-red-500">
+            Enter Valid 10 Digits number
+          </p>
+        </div>
+
+        <label class="mr-27">Date of Birth: </label>
+        <br />
+        <input
+          type="date"
+          formControlName="dob"
+          class="mt-2 mb-3 w-full pl-1 border-1 border-gray-400 h-8.5 rounded-md"
+        />
+        <div *ngIf="registerForm.get('dob')?.touched">
+          <p *ngIf="registerForm.get('dob')?.errors?.['required']" class="text-red-500">
+            Date of birth is required
+          </p>
+
+          <p *ngIf="registerForm.get('dob')?.errors?.['ageValid']" class="text-red-500">
+            Age should be 18+
+          </p>
+        </div>
+
+        <button 
+          class="bg-blue-600 text-white mt-6 font-bold rounded-xl px-25 py-2.5 mr-5 text-center w-full disabled:bg-gray-300 cursor-pointer"
+          [disabled]="registerForm.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

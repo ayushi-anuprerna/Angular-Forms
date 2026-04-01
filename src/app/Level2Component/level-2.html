@@ -1,5 +1,4 @@
 <div class="p-6 flex gap-6">
-  <!-- ================= FORM ================= -->
   <form
     *ngIf="applicationForm"
     [formGroup]="applicationForm"
@@ -8,11 +7,9 @@
   >
     <h2 class="text-xl font-bold mb-4">Job Application Form</h2>
 
-    <!-- ================= PERSONAL DETAILS ================= -->
     <div formGroupName="personalDetails" class="mb-4">
       <h3 class="font-semibold">Personal Details</h3>
 
-      <!-- NAME -->
       <input
         formControlName="name"
         placeholder="Name"
@@ -45,7 +42,6 @@
         </p>
       </div>
 
-      <!-- EMAIL -->
       <input
         formControlName="email"
         placeholder="Email"
@@ -72,7 +68,6 @@
         </p>
       </div>
 
-      <!-- PHONE -->
       <input
         formControlName="phone"
         placeholder="Phone"
@@ -94,11 +89,9 @@
       </div>
     </div>
 
-    <!-- ================= ADDRESS ================= -->
     <div formGroupName="address" class="mb-4">
       <h3 class="font-semibold">Address</h3>
 
-      <!-- STREET -->
       <input
         formControlName="street"
         placeholder="Street"
@@ -119,7 +112,6 @@
         </p>
       </div>
 
-      <!-- CITY -->
       <input
         formControlName="city"
         placeholder="City"
@@ -140,7 +132,6 @@
         </p>
       </div>
 
-      <!-- PINCODE -->
       <input
         formControlName="pincode"
         placeholder="Pincode"
@@ -162,7 +153,6 @@
       </div>
     </div>
 
-    <!-- ================= EXPERIENCE ================= -->
     <div formGroupName="experience" class="mb-4">
       <h3 class="font-semibold">Experience</h3>
 
@@ -204,7 +194,6 @@
         </p>
       </div>
 
-      <!-- SKILLS -->
       <div formArrayName="skills">
         <h4 class="mt-2">Skills</h4>
 
@@ -219,7 +208,6 @@
           <button type="button" (click)="removeSkill(i)">Remove</button>
         </div>
 
-        <!-- Skill Errors -->
         <div *ngFor="let skill of skills.controls; let i = index">
           <p *ngIf="skill.touched && skill.errors?.['required']" class="text-red-500">
             Skill {{ i + 1 }} is required
@@ -230,7 +218,6 @@
       <button type="button" (click)="addSkill()" class="mt-2">+ Add Skill</button>
     </div>
 
-    <!-- ================= SUBMIT ================= -->
     <button
       type="submit"
       [disabled]="applicationForm.invalid"
@@ -240,7 +227,6 @@
     </button>
   </form>
 
-  <!-- ================= SUMMARY ================= -->
   <div class="w-1/2 border p-4 rounded shadow" *ngIf="submittedData">
     <h2 class="text-xl font-bold mb-4">Submitted Data</h2>
     <pre>{{ submittedData | json }}</pre>

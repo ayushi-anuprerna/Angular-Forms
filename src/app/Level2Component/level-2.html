@@ -1,0 +1,248 @@
+<div class="p-6 flex gap-6">
+  <!-- ================= FORM ================= -->
+  <form
+    *ngIf="applicationForm"
+    [formGroup]="applicationForm"
+    (ngSubmit)="onSubmit()"
+    class="w-1/2 border p-4 rounded shadow"
+  >
+    <h2 class="text-xl font-bold mb-4">Job Application Form</h2>
+
+    <!-- ================= PERSONAL DETAILS ================= -->
+    <div formGroupName="personalDetails" class="mb-4">
+      <h3 class="font-semibold">Personal Details</h3>
+
+      <!-- NAME -->
+      <input
+        formControlName="name"
+        placeholder="Name"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['personalDetails', 'name'])?.touched &&
+            applicationForm.get(['personalDetails', 'name'])?.invalid,
+        }"
+      />
+
+      <div *ngIf="applicationForm.get(['personalDetails', 'name'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'name'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Name is required
+        </p>
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'name'])?.errors?.['minlength']"
+          class="text-red-500"
+        >
+          Minimum 4 characters required
+        </p>
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'name'])?.errors?.['maxlength']"
+          class="text-red-500"
+        >
+          Maximum 20 characters allowed
+        </p>
+      </div>
+
+      <!-- EMAIL -->
+      <input
+        formControlName="email"
+        placeholder="Email"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['personalDetails', 'email'])?.touched &&
+            applicationForm.get(['personalDetails', 'email'])?.invalid,
+        }"
+      />
+
+      <div *ngIf="applicationForm.get(['personalDetails', 'email'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'email'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Email is required
+        </p>
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'email'])?.errors?.['email']"
+          class="text-red-500"
+        >
+          Invalid Email
+        </p>
+      </div>
+
+      <!-- PHONE -->
+      <input
+        formControlName="phone"
+        placeholder="Phone"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['personalDetails', 'phone'])?.touched &&
+            applicationForm.get(['personalDetails', 'phone'])?.invalid,
+        }"
+      />
+
+      <div *ngIf="applicationForm.get(['personalDetails', 'phone'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'phone'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Phone is required
+        </p>
+      </div>
+    </div>
+
+    <!-- ================= ADDRESS ================= -->
+    <div formGroupName="address" class="mb-4">
+      <h3 class="font-semibold">Address</h3>
+
+      <!-- STREET -->
+      <input
+        formControlName="street"
+        placeholder="Street"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['address', 'street'])?.touched &&
+            applicationForm.get(['address', 'street'])?.invalid,
+        }"
+      />
+
+      <div *ngIf="applicationForm.get(['address', 'street'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['address', 'street'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Street is required
+        </p>
+      </div>
+
+      <!-- CITY -->
+      <input
+        formControlName="city"
+        placeholder="City"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['address', 'city'])?.touched &&
+            applicationForm.get(['address', 'city'])?.invalid,
+        }"
+      />
+
+      <div *ngIf="applicationForm.get(['address', 'city'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['address', 'city'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          City is required
+        </p>
+      </div>
+
+      <!-- PINCODE -->
+      <input
+        formControlName="pincode"
+        placeholder="Pincode"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['address', 'pincode'])?.touched &&
+            applicationForm.get(['address', 'pincode'])?.invalid,
+        }"
+      />
+
+      <div *ngIf="applicationForm.get(['address', 'pincode'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['address', 'pincode'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Pincode is required
+        </p>
+      </div>
+    </div>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <div formGroupName="experience" class="mb-4">
+      <h3 class="font-semibold">Experience</h3>
+
+      <input
+        formControlName="yearsOfExp"
+        placeholder="Years of Exp"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['experience', 'yearsOfExp'])?.touched &&
+            applicationForm.get(['experience', 'yearsOfExp'])?.invalid,
+        }"
+      />
+      <div *ngIf="applicationForm.get(['experience', 'yearsOfExp'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['experience', 'yearsOfExp'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Experience is required
+        </p>
+      </div>
+
+      <input
+        formControlName="currentRole"
+        placeholder="Current Role"
+        class="input"
+        [ngClass]="{
+          'border-red-500':
+            applicationForm.get(['experience', 'currentRole'])?.touched &&
+            applicationForm.get(['experience', 'currentRole'])?.invalid,
+        }"
+      />
+      <div *ngIf="applicationForm.get(['experience', 'currentRole'])?.touched">
+        <p
+          *ngIf="applicationForm.get(['experience', 'currentRole'])?.errors?.['required']"
+          class="text-red-500"
+        >
+          Current role is required
+        </p>
+      </div>
+
+      <!-- SKILLS -->
+      <div formArrayName="skills">
+        <h4 class="mt-2">Skills</h4>
+
+        <div *ngFor="let skill of skills.controls; let i = index" class="flex gap-2 mt-2">
+          <input
+            [formControlName]="i"
+            placeholder="Skill"
+            class="input"
+            [ngClass]="{ 'border-red-500': skill.touched && skill.invalid }"
+          />
+
+          <button type="button" (click)="removeSkill(i)">Remove</button>
+        </div>
+
+        <!-- Skill Errors -->
+        <div *ngFor="let skill of skills.controls; let i = index">
+          <p *ngIf="skill.touched && skill.errors?.['required']" class="text-red-500">
+            Skill {{ i + 1 }} is required
+          </p>
+        </div>
+      </div>
+
+      <button type="button" (click)="addSkill()" class="mt-2">+ Add Skill</button>
+    </div>
+
+    <!-- ================= SUBMIT ================= -->
+    <button
+      type="submit"
+      [disabled]="applicationForm.invalid"
+      class="mt-4 bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-400"
+    >
+      Submit
+    </button>
+  </form>
+
+  <!-- ================= SUMMARY ================= -->
+  <div class="w-1/2 border p-4 rounded shadow" *ngIf="submittedData">
+    <h2 class="text-xl font-bold mb-4">Submitted Data</h2>
+    <pre>{{ submittedData | json }}</pre>
+  </div>
+</div>

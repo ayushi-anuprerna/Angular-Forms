@@ -71,8 +71,12 @@ export class Level1Component {
       return { passwordMismatch: true };
     }
   }
-  public handleSubmit(){
+  public handleSubmit():null{
+    if(this.registerForm.invalid){
+      return null
+    }
     console.log(this.registerForm.value)
+    return null
   }
   private emailValidator(control: AbstractControl):ValidationErrors | null{
     let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

@@ -37,7 +37,7 @@
         Checking SKU...
     </div>
 
-    <div *ngIf="productForm.get('sku')?.errors?.['invalid']" class="text-red-500 text-sm">
+    <div *ngIf="productForm.get('sku')?.errors?.['pattern']" class="text-red-500 text-sm">
         Invalid SKU format
     </div>
 

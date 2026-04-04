@@ -37,19 +37,14 @@
         Checking SKU...
     </div>
 
-    <div *ngIf="productForm.get('sku')?.errors?.['invalidSku']" class="text-red-500 text-sm">
+    <div *ngIf="productForm.get('sku')?.errors?.['invalid']" class="text-red-500 text-sm">
         Invalid SKU format
     </div>
 
     <div *ngIf="productForm.get('sku')?.errors?.['skuTaken']" class="text-red-500 text-sm">
         SKU already taken
     </div>
-
-    <div *ngIf="productForm.get('sku')?.errors?.['valid']" class="text-green-700 text-sm">
-        SKU is valid
-    </div>
-
-
+  
     <input 
       type="number" 
       formControlName="price" 

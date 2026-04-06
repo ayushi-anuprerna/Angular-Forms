@@ -86,6 +86,12 @@
         >
           Phone is required
         </p>
+        <p
+          *ngIf="applicationForm.get(['personalDetails', 'phone'])?.errors?.['pattern']"
+          class="text-red-500"
+        >
+          Phone number must be 10 digits
+        </p>
       </div>
     </div>
 

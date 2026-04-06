@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-level-2',
@@ -9,20 +10,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './level-2.html',
   styleUrl: './level-2.css',
 })
-export class Level2Component implements OnInit {
-  applicationForm!: FormGroup;
-  submittedData: any = null;
-  public skills: FormArray;
+export class Level2Component {
+  public applicationForm!: FormGroup;
+  public submittedData: any = null;
+  public skillsList!: FormArray;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
 
-  ngOnInit(): void {
-    this.skills = this.fb.array([])
+    this.skillsList = this.fb.array([]);
     this.applicationForm = this.fb.group({
       personalDetails: this.fb.group({
         name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
         email: ['', [Validators.required, Validators.email]],
-        phone: ['', Validators.required, Validators.pattern(/^\d[0-9]{10}$/)],
+        phone: ['', [Validators.required, Validators.pattern(/^\d[0-9]{9}$/)]],
       }),
       address: this.fb.group({
         street: ['', Validators.required],
@@ -32,31 +32,34 @@ export class Level2Component implements OnInit {
       experience: this.fb.group({
         yearsOfExp: [0, Validators.required],
         currentRole: ['', Validators.required],
-        skills: this.skills,
+        skills: this.skillsList,
       }),
     });
 
-    this.applicationForm.get(['personalDetails', 'email'])?.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-      console.log('Email changed:', value);
+    this.applicationForm.get(['personalDetails', 'email'])?.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe((value) => {
+        console.log('Email changed:', value);
     });
   }
 
-  get skills(): FormArray {
+  public get skills(): FormArray {
     return this.applicationForm.get(['experience', 'skills']) as FormArray;
   }
 
-  addSkill(): void {
-    this.skills.push(this.fb.control('', Validators.required));
+  public addSkill(): void {
+    this.skillsList.push(this.fb.control('', Validators.required));
   }
 
-  removeSkill(index: number): void {
-    this.skills.removeAt(index);
+  public removeSkill(index: number): void {
+    this.skillsList.removeAt(index);
   }
 
-  onSubmit(): undefined {
-    console.log("this.applicationForm")
+  public onSubmit(): void {
     if (this.applicationForm.valid) {
       this.submittedData = this.applicationForm.value;
     }
   }
 }
+
+

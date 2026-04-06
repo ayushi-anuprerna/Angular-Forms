@@ -12,15 +12,17 @@ import { CommonModule } from '@angular/common';
 export class Level2Component implements OnInit {
   applicationForm!: FormGroup;
   submittedData: any = null;
+  public skills: FormArray;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.skills = this.fb.array([])
     this.applicationForm = this.fb.group({
       personalDetails: this.fb.group({
         name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-        email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
-        phone: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', Validators.required, Validators.pattern(/^\d[0-9]{10}$/)],
       }),
       address: this.fb.group({
         street: ['', Validators.required],
@@ -28,13 +30,13 @@ export class Level2Component implements OnInit {
         pincode: ['', Validators.required],
       }),
       experience: this.fb.group({
-        yearsOfExp: ['', Validators.required],
+        yearsOfExp: [0, Validators.required],
         currentRole: ['', Validators.required],
-        skills: this.fb.array([]),
+        skills: this.skills,
       }),
     });
 
-    this.applicationForm.get(['personalDetails', 'email'])?.valueChanges.subscribe((value) => {
+    this.applicationForm.get(['personalDetails', 'email'])?.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
       console.log('Email changed:', value);
     });
   }

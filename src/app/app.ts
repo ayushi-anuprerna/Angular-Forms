@@ -1,16 +1,29 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-// import { Level1Component } from './Level1Component/level-1';
-import { Level2Component } from './Level2Component/level-2';
-import { Level3 } from './Level3Component/level-3';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,CommonModule,Level2Component,Level3],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 
 export class App {
   protected readonly title = signal('Form-Task');
+
+  constructor(private router: Router) {}
+
+  public navigateToLevel1() {
+    this.router.navigate(['/']);
+  }
+
+  public navigateToLevel2() {
+    this.router.navigate(['/level-2']);
+  }
+
+  public navigateToLevel3() {
+    this.router.navigate(['/level-3']);
+  }
 }

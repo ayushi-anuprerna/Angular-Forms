@@ -9,7 +9,7 @@ import { delay, map, Observable, of } from 'rxjs';
   templateUrl: './level-3.html',
   styleUrls: ['./level-3.css'],
 })
-export class Level3 {
+export class Level3Component {
   public productForm: FormGroup
 
   public categories: string[] = ['Electronics', 'Books', 'Clothing', 'Home', 'Toys', 'Furniture', 'Sports'];
